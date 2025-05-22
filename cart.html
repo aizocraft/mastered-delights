@@ -1,42 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Basic Meta -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ✅ Page Title (Clear for users & browsers) -->
+        <title>Your Cake Cart | MasteredDelights – Review & Checkout</title>
 
-    <!-- Page Title -->
-    <title>Cart | SweetDelights</title>
+        <!-- ✅ Standard Meta -->
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="Review your selected cakes before checkout. Modify weights, remove items, and proceed with secure ordering and delivery anywhere in Nairobi.">
+        <meta name="keywords" content="
+            cake cart, MasteredDelights cart, cakes checkout, Nairobi cake order cart, 
+            review cake order, cake delivery cart, online cake shop Nairobi, 
+            custom cakes review page, 1kg to 10kg cake cart, buy cake Nairobi
+        ">
+        <meta name="author" content="MasteredDelights Bakery">
+        <meta name="robots" content="noindex, follow"> <!-- Prevents this from ranking in search but still allows bots to follow links -->
+        <link rel="canonical" href="https://mastereddelights.vercel.app/cart.html">
 
-        <!-- SEO Meta -->
-        <meta name="description" content="Review your order and checkout securely with SweetDelights.">
-        <meta name="keywords" content="SweetDelights, bakery, cakes, desserts, handmade cakes, custom cakes, pastries, sweet treats">
-        <meta name="author" content="SweetDelights Team">
-        <meta name="robots" content="noindex, nofollow">
-
-        <!-- Favicon -->
+       <!-- Favicon -->
         <link rel="icon" type="image/png" sizes="32x32" href="images/logo/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="images/logo/favicon-16x16.png">
         <link rel="apple-touch-icon" sizes="180x180" href="images/logo/apple-touch-icon.png">
         <link rel="icon" href="images/logo/favicon.ico" sizes="any">
         <link rel="manifest" href="images/logo/site.webmanifest">
 
-        <!-- Open Graph (Facebook, WhatsApp) -->
-        <meta property="og:title" content="About Us | SweetDelights">
-        <meta property="og:description" content="Learn more about SweetDelights – where every dessert is a delight.">
-        <meta property="og:image" content="https://yourdomain.com/images/logo/og-image.jpg">
-        <meta property="og:url" content="https://yourdomain.com/about.html">
+        <!-- ✅ Open Graph / Facebook / WhatsApp -->
         <meta property="og:type" content="website">
+        <meta property="og:url" content="https://mastereddelights.vercel.app/cart.html">
+        <meta property="og:title" content="Your Cake Cart | MasteredDelights – Ready to Checkout">
+        <meta property="og:description" content="You've added cakes to your cart! Confirm weights, flavors, and quantity before placing your order with MasteredDelights – Nairobi's best cake shop.">
+        <meta property="og:image" content="https://mastereddelights.vercel.app/images/cart-preview.png">
+        <meta property="og:image:alt" content="MasteredDelights Cake Cart Preview">
+        <meta property="og:locale" content="en_KE">
+        <meta property="og:site_name" content="MasteredDelights">
 
-        <!-- Twitter Card -->
+        <!-- ✅ Twitter Meta Tags -->
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="twitter:title" content="About Us | SweetDelights">
-        <meta name="twitter:description" content="Discover the heart of SweetDelights – your source for handmade cakes and sweet creations.">
-        <meta name="twitter:image" content="https://yourdomain.com/images/logo/twitter-image.jpg">
-        <meta name="twitter:site" content="@SweetDelights">
+        <meta name="twitter:site" content="@MasteredDelightsKE">
+        <meta name="twitter:title" content="Your Cart | MasteredDelights – Order Custom Cakes Now">
+        <meta name="twitter:description" content="Almost there! Review your custom cake order before finalizing checkout. Nairobi-wide delivery available.">
+        <meta name="twitter:image" content="https://mastereddelights.vercel.app/images/cart-preview.png">
 
-        <!-- Mobile Theme -->
-        <meta name="theme-color" content="#f7c5cc">
+        <!-- ✅ Mobile & Theming -->
+        <meta name="theme-color" content="#C4972D">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
         <!-- Fonts and Stylesheets -->
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
@@ -46,6 +54,24 @@
         <link rel="stylesheet" href="css/cakes.css">
         <link rel="stylesheet" href="css/about.css">
         <link rel="stylesheet" href="css/footer.css">
+
+                    <script type="application/ld+json">
+            {
+            "@context": "https://schema.org",
+            "@type": "Order",
+            "merchant": {
+                "@type": "Organization",
+                "name": "MasteredDelights",
+                "url": "https://mastereddelights.vercel.app/"
+            },
+            "orderStatus": "https://schema.org/OrderProcessing",
+            "priceCurrency": "KES",
+            "price": "0",  /* update dynamically if possible */
+            "orderedItem": []
+            }
+            </script>
+
+
         </head>
 
 <body>
@@ -99,17 +125,7 @@
                         <a href="cakes.html" role="menuitem" aria-haspopup="true" aria-expanded="false" class="nav-link">
                             <span class="link-icon"><i class="fas fa-birthday-cake"></i></span>
                             <span class="link-text">Cakes</span>
-                            <span class="dropdown-arrow"><i class="fas fa-chevron-down"></i></span>
                         </a>
-                        <ul class="dropdown-menu" role="menu" aria-label="Cakes submenu">
-                            <li role="none"><a href="#" role="menuitem" class="dropdown-link"><i class="fas fa-cookie"></i> Basic Flavours</a></li>
-                            <li role="none"><a href="#" role="menuitem" class="dropdown-link"><i class="fas fa-ice-cream"></i> Chocomint</a></li>
-                            <li role="none"><a href="#" role="menuitem" class="dropdown-link"><i class="fas fa-cloud"></i> Sponge Cakes</a></li>
-                            <li role="none"><a href="#" role="menuitem" class="dropdown-link"><i class="fas fa-apple-alt"></i> Fruit Cake</a></li>
-                            <li role="none"><a href="#" role="menuitem" class="dropdown-link"><i class="fas fa-paint-brush"></i> Fondant Cakes</a></li>
-                            <li role="none"><a href="#" role="menuitem" class="dropdown-link"><i class="fas fa-leaf"></i> Naked Cakes</a></li>
-                            <li role="none"><a href="#" role="menuitem" class="dropdown-link"><i class="fas fa-cupcake"></i> Iced Cupcakes</a></li>
-                        </ul>
                     </li>
 
                     <li role="none" class="nav-item">
@@ -412,10 +428,10 @@
                         </div>
                         <p class="footer-tagline">Made with <i class="fas fa-heart"></i> served with joy</p>
                         <div class="social-links">
-                            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f" style="color:#4267B2;"></i></a>
-                            <a href="#" aria-label="Instagram"><i class="fab fa-instagram" style="color:#E1306C;"></i></a>
-                            <a href="#" aria-label="Tiktok"><i class="fab fa-tiktok" style="color:#EE1D52; text-shadow: 0 0 5px rgba(238, 29, 82, 0.5);"></i></a>
-                            <a href="#" aria-label="Youtube"><i class="fab fa-youtube" style="color:#FF0000;"></i></a>
+                            <a href="https://www.facebook.com/mastered.delights" aria-label="Facebook"><i class="fab fa-facebook-f" style="color:#4267B2;"></i></a>
+                            <a href="https://www.instagram.com/mastered.delights" aria-label="Instagram"><i class="fab fa-instagram" style="color:#E1306C;"></i></a>
+                            <a href="https://www.tiktok.com/@mastered.delights" aria-label="Tiktok"><i class="fab fa-tiktok" style="color:#EE1D52; text-shadow: 0 0 5px rgba(238, 29, 82, 0.5);"></i></a>
+                            <a href="https://www.youtube.com/@mastered.delights" aria-label="Youtube"><i class="fab fa-youtube" style="color:#FF0000;"></i></a>
                         </div>
                     </div>
                     
