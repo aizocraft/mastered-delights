@@ -813,8 +813,11 @@ class CakeOrderSystem {
           <p>Your cart is empty</p>
         </div>
       `;
+      this.dom.floatingCartBtn.classList.remove('has-items');
       return;
     }
+
+    this.dom.floatingCartBtn.classList.add('has-items');
 
     this.dom.floatingCartItems.innerHTML = this.cart.map((item, index) => `
       <div class="floating-cart-item">
@@ -822,10 +825,10 @@ class CakeOrderSystem {
           <img src="${item.image}" alt="${item.flavor}" onerror="this.src='https://via.placeholder.com/60?text=Cake+Image'">
         </div>
         <div class="cart-item-details">
-          <h4>${item.flavor} ${item.categoryName.includes('Cupcakes') ? 'Cupcakes' : 'Cake'}</h4>
+          <h4>${item.flavor} ${item.categoryName?.includes('Cupcakes') ? 'Cupcakes' : 'Cake'}</h4>
           ${item.size ? `<p>Size: ${item.size}</p>` : ''}
           ${item.quantity > 1 ? `<p>Quantity: ${item.quantity} dozen</p>` : ''}
-          ${item.toppings.length > 0 ? `
+          ${item.toppings?.length > 0 ? `
             <div class="cart-item-toppings">
               <p>Toppings:</p>
               <ul>
@@ -834,21 +837,125 @@ class CakeOrderSystem {
             </div>
           ` : ''}
           ${item.message ? `<p class="cart-item-message">"${item.message}"</p>` : ''}
-          <div class="cart-item-price">KSh ${item.price}</div>
         </div>
-        <button class="remove-item-btn" data-index="${index}">
-          <i class="fas fa-times"></i>
-        </button>
+        <div class="cart-item-actions">
+          <span class="cart-item-price">KSh ${item.price}</span>
+          <button class="remove-item-btn" data-index="${index}">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
       </div>
     `).join('');
-
-    const total = this.calculateTotal();
-    this.dom.floatingCartItems.innerHTML += `
-      <div class="floating-cart-total">
-        <strong>Total: KSh ${total}</strong>
-      </div>
-    `;
   }
 }
+// At the bottom of cakes.js, replace the last line:
+// document.addEventListener('DOMContentLoaded', () => new CakeOrderSystem());
 
-document.addEventListener('DOMContentLoaded', () => new CakeOrderSystem());
+// With this conditional initialization:
+document.addEventListener('DOMContentLoaded', () => {
+    // Always initialize the system
+    window.cakeSystem = new CakeOrderSystem();
+    
+    // Check if we're on cart.html
+    if (window.location.pathname.includes('cart.html')) {
+        // Hide cake-related elements
+        document.getElementById('categories-container')?.style.setProperty('display', 'none', 'important');
+        document.querySelector('.hero')?.style.setProperty('display', 'none', 'important');
+        
+        // Show cart section
+        document.getElementById('cart-order-details')?.style.setProperty('display', 'block', 'important');
+        
+        // Add cart page rendering
+        setTimeout(() => {
+            const system = window.cakeSystem;
+            
+            function renderCartPage() {
+                const cartItemsContainer = document.getElementById('cart-items');
+                const cartTotal = document.getElementById('cart-total');
+                
+                if (!cartItemsContainer) return;
+                
+                if (system.cart.length === 0) {
+                    cartItemsContainer.innerHTML = `
+                        <div class="empty-cart-state">
+                            <i class="fas fa-shopping-basket empty-cart-icon-large"></i>
+                            <p>Your cart is empty</p>
+                            <a href="cakes.html" class="btn btn-primary">
+                                <i class="fas fa-cake"></i> Browse Cakes
+                            </a>
+                        </div>
+                    `;
+                } else {
+                    cartItemsContainer.innerHTML = system.cart.map((item, index) => `
+                        <div class="cart-item" data-index="${index}">
+                            <div class="cart-item-image">
+                                <img src="${item.image || 'images/placeholder.jpg'}" 
+                                     alt="${item.flavor}"
+                                     onerror="this.src='https://via.placeholder.com/80?text=Cake'">
+                            </div>
+                            <div class="cart-item-details">
+                                <h3 class="cart-item-title">${item.flavor} ${item.categoryName || ''}</h3>
+                                ${item.size ? `<p class="cart-item-size">Size: ${item.size}</p>` : ''}
+                                ${item.quantity > 1 ? `<p class="cart-item-quantity">Quantity: ${item.quantity} dozen</p>` : ''}
+                                ${item.toppings?.length > 0 ? `
+                                    <div class="cart-item-toppings">
+                                        <p>Toppings:</p>
+                                        <ul>
+                                            ${item.toppings.map(t => `<li>${t.name} (+KSh ${t.price})</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                ` : ''}
+                                ${item.message ? `<p class="cart-item-message">"${item.message}"</p>` : ''}
+                            </div>
+                            <div class="cart-item-price-actions">
+                                <span class="cart-item-price">KSh ${item.price}</span>
+                                <button class="remove-item-btn btn-icon" data-index="${index}" 
+                                        aria-label="Remove item">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+                
+                if (cartTotal) {
+                    cartTotal.textContent = `KSh ${system.calculateTotal()}`;
+                }
+            }
+
+            // Override methods to update cart page
+            const originalRemoveItem = system.handleRemoveItem;
+            system.handleRemoveItem = function(btn) {
+                originalRemoveItem.call(this, btn);
+                renderCartPage();
+            };
+
+            const originalClearCart = system.clearCart;
+            system.clearCart = function() {
+                originalClearCart.call(this);
+                renderCartPage();
+            };
+
+            // Initial render
+            renderCartPage();
+
+            // Handle proceed to checkout
+            document.getElementById('proceed-to-checkout')?.addEventListener('click', () => {
+                system.initiateCheckout();
+            });
+
+            // Handle confirm order
+            document.getElementById('confirm-order')?.addEventListener('click', () => {
+                const name = document.getElementById('name')?.value;
+                const address = document.getElementById('delivery-address')?.value;
+                
+                if (!name || !address) {
+                    system.showToast('Please fill in all required fields', 'error');
+                    return;
+                }
+                
+                system.initiateCheckout();
+            });
+        }, 500);
+    }
+});

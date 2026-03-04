@@ -235,36 +235,6 @@
                     </button>
                 </div>
 
-                <div class="order-confirmation">
-                    <h2>Order Confirmation</h2>
-                    <div id="order-details" class="order-details">
-                        <!-- Order details will be displayed here -->
-                    </div>
-                    <div class="customer-details">
-                        <h3>Customer Information</h3>
-                        <form id="customer-form" class="customer-form">
-                            <div class="form-group">
-                                <label for="name">Name:</label>
-                                <input type="text" id="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="email" id="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone:</label>
-                                <input type="tel" id="phone">
-                            </div>
-                            <div class="form-group">
-                                <label for="delivery-address">Address:</label>
-                                <input type="text" id="delivery-address" required>
-                            </div>
-                        </form>
-                    </div>
-                    <button class="btn btn-primary" id="confirm-order">
-                        <i class="fas fa-check"></i> Confirm Order
-                    </button>
-                </div>
             </section>
 
             <!-- Toppings Popup Modal -->
@@ -455,14 +425,113 @@
             <script src="js/navbar.js"></script>
             <script src="js/cakes.js"></script>
             <script src="js/ProductList.js"></script>
-            <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Verify data loaded
-                if (!window.SweetDelights || !window.SweetDelights.Products) {
-                    console.error('Product data failed to load!');
-                    return;
-                } });
+           <!-- Add this after your existing scripts -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on cart.html
+    if (window.location.pathname.includes('cart.html')) {
+        // Wait for CakeOrderSystem to initialize
+        setTimeout(function() {
+            if (window.cakeSystem) {
+                // Use the existing cakeSystem instance
+                const system = window.cakeSystem;
+                
+                // Render cart items on the cart page
+                function renderCartPage() {
+                    const cartItemsContainer = document.getElementById('cart-items');
+                    const cartTotal = document.getElementById('cart-total');
+                    
+                    if (!cartItemsContainer) return;
+                    
+                    if (system.cart.length === 0) {
+                        cartItemsContainer.innerHTML = `
+                            <div class="empty-cart-state">
+                                <i class="fas fa-shopping-basket empty-cart-icon-large"></i>
+                                <p>Your cart is empty</p>
+                                <a href="cakes.html" class="btn btn-primary">
+                                    <i class="fas fa-cake"></i> Browse Cakes
+                                </a>
+                            </div>
+                        `;
+                    } else {
+                        cartItemsContainer.innerHTML = system.cart.map((item, index) => `
+                            <div class="cart-item" data-index="${index}">
+                                <div class="cart-item-image">
+                                    <img src="${item.image || 'images/placeholder.jpg'}" 
+                                         alt="${item.flavor}"
+                                         onerror="this.src='https://via.placeholder.com/80?text=Cake'">
+                                </div>
+                                <div class="cart-item-details">
+                                    <h3 class="cart-item-title">${item.flavor} ${item.categoryName || ''}</h3>
+                                    ${item.size ? `<p class="cart-item-size">Size: ${item.size}</p>` : ''}
+                                    ${item.quantity > 1 ? `<p class="cart-item-quantity">Quantity: ${item.quantity} dozen</p>` : ''}
+                                    ${item.toppings?.length > 0 ? `
+                                        <div class="cart-item-toppings">
+                                            <p>Toppings:</p>
+                                            <ul>
+                                                ${item.toppings.map(t => `<li>${t.name} (+KSh ${t.price})</li>`).join('')}
+                                            </ul>
+                                        </div>
+                                    ` : ''}
+                                    ${item.message ? `<p class="cart-item-message">"${item.message}"</p>` : ''}
+                                </div>
+                                <div class="cart-item-price-actions">
+                                    <span class="cart-item-price">KSh ${item.price}</span>
+                                    <button class="remove-item-btn btn-icon" data-index="${index}" 
+                                            aria-label="Remove item">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        `).join('');
+                    }
+                    
+                    if (cartTotal) {
+                        cartTotal.textContent = `KSh ${system.calculateTotal()}`;
+                    }
+                }
 
-            </script>
+                // Override handleRemoveItem to also update cart page
+                const originalRemoveItem = system.handleRemoveItem;
+                system.handleRemoveItem = function(btn) {
+                    originalRemoveItem.call(this, btn);
+                    renderCartPage();
+                };
+
+                // Override clearCart to also update cart page
+                const originalClearCart = system.clearCart;
+                system.clearCart = function() {
+                    originalClearCart.call(this);
+                    renderCartPage();
+                };
+
+                // Initial render
+                renderCartPage();
+
+                // Handle proceed to checkout button
+                document.getElementById('proceed-to-checkout')?.addEventListener('click', function() {
+                    system.initiateCheckout();
+                });
+
+                // Handle confirm order button
+                document.getElementById('confirm-order')?.addEventListener('click', function() {
+                    const name = document.getElementById('name')?.value;
+                    const address = document.getElementById('delivery-address')?.value;
+                    
+                    if (!name || !address) {
+                        system.showToast('Please fill in all required fields', 'error');
+                        return;
+                    }
+                    
+                    system.initiateCheckout();
+                });
+
+            } else {
+                console.error('CakeOrderSystem not initialized');
+            }
+        }, 1000); // Wait 1 second for CakeOrderSystem to initialize
+    }
+});
+</script>
 </body>
 </html>
