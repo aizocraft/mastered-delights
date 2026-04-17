@@ -556,7 +556,7 @@ class CakeOrderSystem {
     
     if (!this.validateCheckoutForm()) return;
 
-     const formattedPhone = '741653862';
+     const formattedPhone = '795105956';
     const message = this.generateWhatsAppMessage(name, email, phone, location, deliveryDate, notes);
     const whatsappUrl = `https://wa.me/254${formattedPhone}?text=${encodeURIComponent(message)}`;
     

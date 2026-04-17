@@ -149,7 +149,8 @@ class PremiumNavbar {
 
       // Touch events
       link.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768) {
+        // Only intercept click if there's an actual dropdown menu to toggle
+        if (window.innerWidth <= 768 && menu) {
           e.preventDefault();
           dropdown.getAttribute('aria-expanded') === 'true' 
             ? this.closeDropdown(dropdown) 
