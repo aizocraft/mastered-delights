@@ -60,9 +60,13 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
         <link rel="stylesheet" href="css/navbar.css">
         <link rel="stylesheet" href="css/cakes.css">
+        <link rel="stylesheet" href="css/contact.css">
         <link rel="stylesheet" href="css/about.css">
         <link rel="stylesheet" href="css/footer.css">
-        <link rel="stylesheet" href="css/contact.css">
+        
+        
+      
+
 
                <script type="application/ld+json">
                 {
@@ -113,50 +117,50 @@
                     <i class="fas fa-envelope"></i>
                 </span>
                 Get in Touch
-            </h2>
-            <p class="section-subtitle">
-                We're here to help and answer any questions you might have. 
-                <span class="highlight-text">Looking forward to hearing from you!</span>
-            </p>
+           
         </div>
 
         <div class="contact-grid">
             <!-- Form Column -->
             <div class="contact-form-container">
-                <form id="sweetDelightsForm" class="floating-form">
+               <form id="sweetDelightsForm" class="floating-form" enctype="multipart/form-data">
                     <div class="form-header">
-                        <h3>Custom Cake Inquiry</h3>
-                        <p>Complete this form and we'll get back to you within 24 hours</p>
+                        <h3>Cake Inquiry</h3>
+                        
                     </div>
 
                     <div class="form-grid">
-                        <div class="form-group floating-group">
-                            <input type="text" id="name" name="name" required class="floating-input">
-                            <label for="name" class="floating-label">Your Name</label>
+
+<div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" name="name" required class="form-input">
                             <span class="focus-border"></span>
-                            <i class="fas fa-user input-icon"></i>
                         </div>
 
-                        <div class="form-group floating-group">
-                            <input type="email" id="email" name="email" required class="floating-input">
-                            <label for="email" class="floating-label">Email Address</label>
+
+
+<div class="form-group">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" id="email" name="email" required class="form-input">
                             <span class="focus-border"></span>
-                            <i class="fas fa-envelope input-icon"></i>
                         </div>
 
-                        <div class="form-group floating-group">
-                            <input type="tel" id="phone" name="phone" required class="floating-input">
-                            <label for="phone" class="floating-label">Phone Number</label>
+
+
+<div class="form-group">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required class="form-input">
                             <span class="focus-border"></span>
-                            <i class="fas fa-phone input-icon"></i>
                         </div>
 
-                        <div class="form-group floating-group full-width">
-                            <textarea id="message" name="message" rows="3" required class="floating-input"></textarea>
-                            <label for="message" class="floating-label">Your Message</label>
+
+
+<div class="form-group full-width">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea id="message" name="message" rows="3" required class="form-input"></textarea>
                             <span class="focus-border"></span>
-                            <i class="fas fa-comment input-icon"></i>
                         </div>
+
 
                         <div class="form-group full-width file-upload-group">
                             <label class="file-upload-label">
@@ -197,7 +201,7 @@
                             <i class="fas fa-check-circle success-icon"></i>
                             <div class="success-text">
                                 <h4>Thank you for your inquiry!</h4>
-                                <p>Your order #<span id="orderNumber">DL2024-XXXX</span> has been received. We'll contact you shortly.</p>
+                                <p> We'll contact you shortly.</p>
                             </div>
                         </div>
                     </div>
@@ -431,6 +435,7 @@
             <div id="toast-container" class="toast-container"></div>
 
             <!-- Scripts -->
+           <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
             <script src="js/navbar.js"></script>
             <script src="js/cakes.js"></script>
