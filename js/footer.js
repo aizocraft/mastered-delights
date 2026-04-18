@@ -52,7 +52,7 @@ class PremiumFooter {
         </div>
         
         <div class="footer-bottom-compact">
-          <p>&copy; 2025 Mastered Delights. All rights reserved.</p>
+&copy; ${new Date().getFullYear()} Mastered Delights. All rights reserved.
         </div>
       </footer>
     `;
