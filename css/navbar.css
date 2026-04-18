@@ -1,4 +1,47 @@
 :root {
+  /* Color Palette - Light Mode Defaults */
+  --primary: #c5a880;
+  --primary-dark: #a68c6b;
+  --primary-light: #d8c4a4;
+  --secondary: #1a5f32;
+  --secondary-dark: #134a26;
+  --accent: #ff6b6b;
+  --accent-dark: #e55a5a;
+
+  /* Backgrounds */
+  --light: #ffffff;
+  --dark: #0f0f0f;
+  --glass-light: rgba(255, 255, 255, 0.92);
+  --glass-dark: rgba(15, 15, 15, 0.92);
+  --glass-border-light: rgba(197, 168, 128, 0.2);
+  --glass-border-dark: rgba(197, 168, 128, 0.15);
+
+  /* Text */
+  --text-dark: #1a1a1a;
+  --text-light: #e8e8e8;
+  --text-muted: #666;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.18);
+
+  /* Glows/Neons */
+  --neon-primary: 0 0 20px rgba(197, 168, 128, 0.4);
+  --neon-accent: 0 0 20px rgba(255, 107, 107, 0.5);
+  --glow-primary: 0 0 30px rgba(197, 168, 128, 0.3);
+
+html.dark-mode {
+  --light: #0f0f0f;
+  --dark: #ffffff;
+  --glass-light: rgba(30, 30, 30, 0.92);
+  --glass-dark: rgba(255, 255, 255, 0.1);
+  --glass-border-light: rgba(197, 168, 128, 0.25);
+  --glass-border-dark: rgba(255, 255, 255, 0.1);
+  --text-dark: #e8e8e8;
+  --text-light: #1a1a1a;
+}
 
   /* Smoother Transitions */
   --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
@@ -34,6 +77,10 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+html {
+  background-color: var(--light);
 }
 
 body {
@@ -168,32 +215,27 @@ body {
   position: relative;
 }
 
-.brand-name {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.75rem;
-  font-weight: 700;
-  color: var(--primary);
-  letter-spacing: 0.5px;
-  text-shadow: 0 0 8px rgba(0, 209, 255, 0.4);
+/* Super Styled Logo - Clean, Responsive, Compact */
+.brand-logo {
+  height: 80px;
+  width: auto;
+  max-height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.1));
   transition: all var(--transition-fast);
-  position: relative;
+  border-radius: var(--radius-sm);
+  will-change: transform, filter;
 }
 
-.brand:hover .brand-name {
-  text-shadow: 0 0 20px rgba(0, 209, 255, 0.8);
-  animation: textPulse 2s infinite alternate;
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0;
 }
 
-.accent {
-  color: var(--accent);
-  font-weight: 800;
-  text-shadow: 0 0 8px rgba(255, 45, 117, 0.4);
-  transition: all var(--transition-fast);
-}
-
-.brand:hover .accent {
-  text-shadow: 0 0 20px rgba(255, 45, 117, 0.8);
-  animation: textPulse 2s infinite alternate-reverse;
+.brand:hover .brand-logo {
+  transform: scale(1.08) translateY(-2px);
+  filter: drop-shadow(0 4px 16px rgba(0,209,255,0.4)) drop-shadow(0 0 12px rgba(255,45,117,0.3));
 }
 
 /* Enhanced Icons */
@@ -356,20 +398,41 @@ body {
   top: calc(100% + var(--space-xs));
   left: 50%;
   transform: translateX(-50%);
-  background: var(--glass-light);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-lg), var(--neon-secondary);
-  padding: var(--space-sm) 0;
-  min-width: 240px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(30px) saturate(200%);
+  -webkit-backdrop-filter: blur(30px) saturate(200%);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.15), 0 0 0 1px rgba(255,255,255,0.3);
+  padding: var(--space-md);
+  min-width: 260px;
   opacity: 0;
   visibility: hidden;
-  transform: translate(-50%, -10px);
-  transition: all var(--transition-medium);
+  transform: translate(-50%, -12px);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 1001;
-  border: 1px solid var(--glass-border-light);
-  backdrop-filter: blur(25px) saturate(180%);
-  -webkit-backdrop-filter: blur(25px) saturate(180%);
-  will-change: transform, opacity;
+  border: 1px solid rgba(197,168,128,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #c5a880, transparent);
+}
+
+.dropdown-menu::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(26,95,50,0.3), transparent);
 }
 
 .dark-mode .dropdown-menu {
@@ -666,8 +729,9 @@ body {
     background: linear-gradient(135deg, rgba(40,40,40,0.98), rgba(30,30,30,0.95));
   }
   
-  .brand-name {
-    font-size: 1.6rem;
+.brand-logo {
+    height: 45px;
+    max-height: 45px;
   }
 }
 
@@ -699,8 +763,9 @@ body {
     box-shadow: 0 4px 25px rgba(0,0,0,0.4);
   }
   
-  .brand-name {
-    font-size: 1.5rem;
+.brand-logo {
+    height: 40px;
+    max-height: 40px;
   }
   
   .nav-toggle {
@@ -865,22 +930,26 @@ body {
     background: linear-gradient(135deg, #c5a880, #1a5f32);
   }
   
-  /* Mobile Dropdown */
+  /* Enhanced Mobile Dropdown */
   .dropdown-menu {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s ease;
     position: static;
-    opacity: 1;
-    visibility: visible;
     transform: none;
     box-shadow: none;
     width: calc(100% - var(--space-lg));
-    display: none;
-    margin: var(--space-sm) 0 var(--space-sm) var(--space-lg);
-    border-left: 3px solid #c5a880;
+    margin: var(--space-xs) 0 var(--space-xs) var(--space-lg);
+    border-left: 4px solid #c5a880;
     border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    background: linear-gradient(135deg, rgba(197,168,128,0.1), rgba(26,95,50,0.05));
-    padding: var(--space-sm);
-    backdrop-filter: none;
-    animation: none;
+    background: linear-gradient(135deg, rgba(197,168,128,0.12), rgba(26,95,50,0.08));
+    backdrop-filter: blur(20px);
+    padding: 0 var(--space-md);
+  }
+
+  .dropdown-menu[aria-expanded="true"] {
+    max-height: 300px;
+    padding: var(--space-sm) var(--space-md);
   }
 
   .dark-mode .dropdown-menu {
@@ -985,12 +1054,9 @@ body {
     padding: var(--space-xxs) var(--space-xs);
   }
   
-  .brand-name {
-    font-size: 1.3rem;
-  }
-
-  .brand-name .accent {
-    font-size: 1.1rem;
+.brand-logo {
+    height: 60px;
+    max-height: 60px;
   }
   
   .icon-svg {
@@ -1098,12 +1164,13 @@ body {
   }
 }
 
-@keyframes textPulse {
+/* Logo hover pulse retained but simplified */
+@keyframes logoPulse {
   0% {
-    text-shadow: 0 0 8px currentColor;
+    filter: drop-shadow(0 4px 16px rgba(0,209,255,0.4));
   }
   100% {
-    text-shadow: 0 0 20px currentColor;
+    filter: drop-shadow(0 6px 20px rgba(0,209,255,0.6)) drop-shadow(0 0 16px rgba(255,45,117,0.4));
   }
 }
 
